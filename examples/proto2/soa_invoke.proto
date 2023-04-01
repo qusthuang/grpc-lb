@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+
+package  proto2;
+
+option go_package=".;proto2";
+
+
+
+message SoaInvokerRequest {
+    string reqId = 1;
+    string rpcId = 2;
+    string iface = 3;
+    string method = 4;
+    string requestJson = 5;
+}
+
+message SoaInvokerResponse {
+    int32 code = 1;
+    string msg = 2;
+    string resultJson = 3;
+}
+
+message SoaHealthCheckRequest {
+    string info = 1;
+}
+
+message SoaHealthCheckResponse {
+    string result = 1;
+}
+
+service SoaInvokerService {
+    rpc call (SoaInvokerRequest) returns (SoaInvokerResponse) {
+    };
+    rpc ping(SoaHealthCheckRequest) returns (SoaHealthCheckResponse) {
+    };
+    rpc stream (stream SoaInvokerRequest) returns (stream SoaInvokerResponse) {
+    };
+}
